@@ -8,6 +8,9 @@ import webbrowser
 def convert_to_markdown(link, **kwargs):
 	req = requests.get(link)
 	soup = BeautifulSoup(req.text, 'lxml')
+	for data in soup(['style', 'script']):
+		# Remove tags
+		data.decompose()
 	if kwargs:
 		ht = str(soup.find(**kwargs))
 	else:
