@@ -16,7 +16,8 @@ def convert_to_markdown(link, **kwargs):
 	else:
 		ht = str(soup.find("body"))
 	h = markdownify.markdownify(ht, heading_style="ATX")
-	file_name = os.path.basename(link).replace("-","_").replace(" ","_") + ".md"
+	file_name = "".join([c for c in os.path.basename(link) if c.isalpha() or c.isdigit() or c==' ']).rstrip() + "1.md"
+	#file_name = os.path.basename(link).replace("-","_").replace(" ","_") + ".md"
 	print(os.path.abspath(file_name))
 	with open(file_name,"w", errors="replace") as f:
 		f.write(h)
